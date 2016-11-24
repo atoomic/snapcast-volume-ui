@@ -1,0 +1,12 @@
+[Unit]
+Description=Snapcast Volume WebApp
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/default/snapcast-ui.conf
+Type=simple
+ExecStart=$SNAPCASTUI_PERL/bin/plackup -E production -p 5005 $SNAPCASTUI_HOME/bin/app.psgi
+PIDFile=/var/run/snapcast-ui.pid
+
+[Install]
+WantedBy=multi-user.target
