@@ -5,4 +5,5 @@ install:
 	install snapcast-ui.conf /etc/default/ 
 	install snapcast-ui.service /usr/lib/systemd/system/
 	systemctl daemon-reload
-	@echo Please run systemctl restart snapcast-ui.service 	
+	systemctl restart snapcast-ui.service
+	systemctl status snapcast-ui.service
