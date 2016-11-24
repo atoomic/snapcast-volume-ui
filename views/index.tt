@@ -1,0 +1,25 @@
+<script>
+function setsound(room, level) {
+  jQuery.get('/api/setsound/'+room+'/'+level, function(data) {
+    console.log(data);
+    //$("#msg").html(data["text"]);
+  });
+}
+</script>
+
+<% FOREACH room IN rooms %>
+<div class="demo">
+  <h2><%= room.name %></h2>
+    <input class="<%= room.id %>" data-width="200" data-min="0" data-fgColor="<%= room.color %>" data-max="100" value="<%= room.value %>">
+</div>
+<script>
+    $(".<%= room.id %>").knob({
+        'release' : function (v) { 
+          console.log("<%= room.id %> "+v);
+          setsound( "<%= room.mac %>", v);
+        }
+    });
+</script>
+<% END %>
+
+<!-- http://anthonyterrien.com/knob/ -->

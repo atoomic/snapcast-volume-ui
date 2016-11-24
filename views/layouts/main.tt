@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiroom audio system</title>
+    <script src="javascripts/jquery-1.9.0.min.js"></script>
+    <script src="javascripts/jquery.knob.min.js"></script>
+    <style>
+        body{
+            padding: 0;
+            margin: 0px 50px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            text-rendering: optimizelegibility;
+        }
+        p{font-size: 30px; line-height: 30px}
+        div.demo {text-align: center; width: 400px; height: 250px;}
+        div.demo > p{font-size: 20px}
+    </style>
+</head>
+<body style="background-color: #CCC;">
+<% content %>
+</body>
+</html>
