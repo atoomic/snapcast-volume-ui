@@ -1,0 +1,4 @@
+#!/bin/sh
+
+plackup -E production -p 5005 bin/app.psgi
+#plackup -E production -s Starman --workers=10 -l /tmp/app.sock -a ./bin/app.pl
