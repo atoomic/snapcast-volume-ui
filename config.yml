@@ -67,3 +67,4 @@ snapcast:
        name: 'Salon'
   ignore:
     - 'b8:27:eb:a6:76:a5'
+    - '00:00:00:00:00:00'
