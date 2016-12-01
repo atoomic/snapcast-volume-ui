@@ -1,4 +1,5 @@
 requires "Simple::Accessor" => "1.02";
+requires "Test::Harness" => 0;
 requires "Net::Telnet" => 0;
 requires "Dancer2"  => "0";
 requires "Template" => 0;
