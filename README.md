@@ -58,6 +58,15 @@ If you do not want to display some clients you can ignore them:
 	    - 'b8:27:eb:a6:76:a5'
 	    - 'b8:27:eb:a6:76:a6'    
 
+Going further
+-------------
+
+If you are interested by this project, this probably means that you have already set multiple snapcast clients on different servers. Then you might like the idea of using one accent colored icon for each of your client, if they are using RuneUI or other. 
+
+You should check this project https://github.com/atoomic/runeui-color-icons to create a webapp with a nice icon for each clients
+
+![Blue](https://raw.githubusercontent.com/atoomic/runeui-color-icons/master/blue/apple-touch-icon.png)
+
 Wish List
 -------
 Unordered list of features
