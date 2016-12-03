@@ -66,8 +66,11 @@ snapcast:
     'b8:27:eb:27:f6:c4':
        color: '#00C'
        name: 'Salon'
-    'b8:27:eb:9b:7d:50':
-       color: '#e5c837'
+#    'b8:27:eb:9b:7d:50':
+#       color: '#edb91e'
+#       name: 'Bedroom LAN'
+    'b8:27:eb:ce:28:05':
+       color: '#edb91e'
        name: 'Bedroom'
     '80:1f:02:ed:fd:e0':
        name: 'Demo Room #1'
@@ -76,3 +79,4 @@ snapcast:
   ignore:
     - 'b8:27:eb:a6:76:a5'
     - '00:00:00:00:00:00'
+    - 'b8:27:eb:9b:7d:50'
