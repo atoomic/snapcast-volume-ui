@@ -68,7 +68,7 @@ function setsound(room, level) {
         <div class="container">
           <div class="row">
             <div class="col-sm-12 col-lg-12">
-            <p>Snapcast WebUI on <a href="https://github.com/atoomic/snapcast-volume-ui" target="_blank">github</a>              
+            <p>Snapcast WebUI on <a href="https://github.com/atoomic/snapcast-volume-ui" target="_blank">github</a> by <a href="http://twitter.com/atoomic">@atoomic</a>
             <br>using Blocks Theme from <a href="http://Alvarez.is">Alvarez.is</a>
             <br><i>powered by <a href="http://perldancer.org/">Perl Dancer</a></p>
             </div>
