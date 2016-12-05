@@ -19,11 +19,11 @@ function setsound(room, level) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html"><img src="assets/img/logo30.png" alt=""> Multiroom Audio</a>
+          <a class="navbar-brand" href="/"><img src="assets/img/logo30.png" alt=""> Multiroom Audio</a>
         </div> 
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+              <!--<li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>-->
               <li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #1</a></li>
               <li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #2</a></li>
             </ul>
@@ -63,6 +63,19 @@ function setsound(room, level) {
             
   </div> <!-- /container -->
 
+  <div id="footerwrap">
+        <footer class="clearfix"></footer>
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-lg-12">
+            <p>Snapcast WebUI on <a href="https://github.com/atoomic/snapcast-volume-ui" target="_blank">github</a>              
+            <br>using Blocks Theme from <a href="http://Alvarez.is">Alvarez.is</a>
+            <br><i>powered by <a href="http://perldancer.org/">Perl Dancer</a></p>
+            </div>
+
+          </div><!-- /row -->
+        </div><!-- /container -->   
+  </div><!-- /footerwrap -->
 
 <!-- Blocks Dashboard Theme - Crafted With Love - Copyright 2013 -->
 
@@ -70,21 +83,7 @@ function setsound(room, level) {
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-  <script type="text/javascript" src="assets/js/lineandbars.js"></script>
-    
-  <script type="text/javascript" src="assets/js/dash-charts.js"></script>
-  <script type="text/javascript" src="assets/js/gauge.js"></script>
+    <script type="text/javascript" src="assets/js/lineandbars.js"></script>
   
-  <!-- NOTY JAVASCRIPT -->
-  <script type="text/javascript" src="assets/js/noty/jquery.noty.js"></script>
-  <script type="text/javascript" src="assets/js/noty/layouts/top.js"></script>
-  <script type="text/javascript" src="assets/js/noty/layouts/topLeft.js"></script>
-  <script type="text/javascript" src="assets/js/noty/layouts/topRight.js"></script>
-  <script type="text/javascript" src="assets/js/noty/layouts/topCenter.js"></script>
-  
-  <!-- You can add more layouts if you want -->
-  <script type="text/javascript" src="assets/js/noty/themes/default.js"></script>
-  <script type="text/javascript" src="http://code.highcharts.com/highcharts.js"></script>
-  <script src="assets/js/jquery.flexslider.js" type="text/javascript"></script>
-
-  <script type="text/javascript" src="assets/js/admin.js"></script>
+    <!-- You can add more layouts if you want -->
+    <script type="text/javascript" src="assets/js/noty/themes/default.js"></script>

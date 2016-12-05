@@ -20,6 +20,7 @@ get '/' => sub {
 
     my @rooms;
     my $id = 1;
+    my @default_colors = qw{#C00 #0C0 #00C};
     foreach my $cli (@$clients) {
         my $mac = $cli->{mac};
 
@@ -30,7 +31,7 @@ get '/' => sub {
             id    => 'room' . $id++,
             name  => $cfgrooms->{$mac}->{name} // "Client from $mac",
             mac   => $mac,
-            color => $cfgrooms->{$mac}->{color} // "#C00",
+            color => $cfgrooms->{$mac}->{color} // $default_colors[ $id % $#default_colors ],
             value => $cli->{volume},
           };
     }
@@ -96,6 +97,7 @@ get '/api/setsound/:room/:volume' => sub {
             if ( $query->{'method'} eq 'Server.GetStatus' ) {
                 my $content = File::Slurp::slurp("./t/fixtures/server_status.json") or die $!;
                 $fake = JSON::XS->new->utf8->decode($content);
+                push @{$fake->{result}{clients}}, @{$fake->{result}{clients}} for 1..3;
             }
             return $fake;
         }
