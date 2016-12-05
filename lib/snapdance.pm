@@ -82,8 +82,23 @@ get '/api/setsound/:room/:volume' => sub {
         return $cfg->{server}{port} // 1705;
     }
 
+    sub is_demo {
+        my $cfg = $_[0]->config();
+        return $cfg->{demo} ? 1 : 0;
+    }
+
     sub do_request {
         my ( $self, $query ) = @_;
+
+        if (  $self->is_demo() ) {
+            my $fake = {};
+            require File::Slurp;
+            if ( $query->{'method'} eq 'Server.GetStatus' ) {
+                my $content = File::Slurp::slurp("./t/fixtures/server_status.json") or die $!;
+                $fake = JSON::XS->new->utf8->decode($content);
+            }
+            return $fake;
+        }
 
         my $snapserver = $self->hostname();
         my $port       = $self->port();

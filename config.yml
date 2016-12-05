@@ -52,6 +52,7 @@ engines:
 #      is_http_only: 1
 
 snapcast:
+  demo: 1
   server:
      host: 'mezza.pi.eboxr.com'
      port: 1705
@@ -68,6 +69,9 @@ snapcast:
     'b8:27:eb:9b:7d:50':
        color: '#e5c837'
        name: 'Bedroom'
+    '80:1F:02:ED:FD:E0':
+       color: '#0c0'
+       name: 'Demo Room #1'
   ignore:
     - 'b8:27:eb:a6:76:a5'
     - '00:00:00:00:00:00'
