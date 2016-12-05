@@ -17,12 +17,17 @@ get '/' => sub {
 
     #print Dumper config()->{'snapcast'};
     my $cfgrooms = $cfg->{rooms} or die;
+    foreach my $room ( keys %$cfgrooms ) {
+        my $lc = lc $room;
+        next if $lc eq $room;
+        $cfgrooms->{$lc} = $cfgrooms->{$room};
+    }
 
     my @rooms;
     my $id = 1;
-    my @default_colors = qw{#C00 #0C0 #00C};
+    my @default_colors = qw{#C00 #0C0 #00C #e5c837};
     foreach my $cli (@$clients) {
-        my $mac = $cli->{mac};
+        my $mac = lc $cli->{mac};
 
         # ignore the client
         next if grep { $_ eq $mac } @{ $cfg->{ignore} // [] };
@@ -31,7 +36,7 @@ get '/' => sub {
             id    => 'room' . $id++,
             name  => $cfgrooms->{$mac}->{name} // "Client from $mac",
             mac   => $mac,
-            color => $cfgrooms->{$mac}->{color} // $default_colors[ $id % $#default_colors ],
+            color => $cfgrooms->{$mac}->{color} // $default_colors[ ( $id - 2 ) % ( $#default_colors + 1 ) ],
             value => $cli->{volume},
           };
     }
@@ -97,7 +102,7 @@ get '/api/setsound/:room/:volume' => sub {
             if ( $query->{'method'} eq 'Server.GetStatus' ) {
                 my $content = File::Slurp::slurp("./t/fixtures/server_status.json") or die $!;
                 $fake = JSON::XS->new->utf8->decode($content);
-                push @{$fake->{result}{clients}}, @{$fake->{result}{clients}} for 1..3;
+                push @{$fake->{result}{clients}}, @{$fake->{result}{clients}} for 1..1;
             }
             return $fake;
         }

@@ -69,9 +69,10 @@ snapcast:
     'b8:27:eb:9b:7d:50':
        color: '#e5c837'
        name: 'Bedroom'
-    '80:1F:02:ED:FD:E0':
-       color: '#0c0'
+    '80:1f:02:ed:fd:e0':
        name: 'Demo Room #1'
+    '80:1F:02:FF:79:6E':
+       name: 'Demo Room #2'
   ignore:
     - 'b8:27:eb:a6:76:a5'
     - '00:00:00:00:00:00'
