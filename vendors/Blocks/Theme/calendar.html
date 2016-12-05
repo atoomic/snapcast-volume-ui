@@ -1,0 +1,192 @@
+<!doctype html>
+<html><head>
+    <meta charset="utf-8">
+    <title>BLOCKS - Bootstrap Dashboard Theme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Carlos Alvarez - Alvarez.is">
+
+    <!-- Le styles -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <link href="assets/css/main.css" rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        background-color:#353535;
+        color:#fff
+      }
+    </style>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le fav and touch icons -->
+    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+
+  	<!-- Google Fonts call. Font Used Open Sans -->
+  	<link href="http://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet" type="text/css">
+  	
+  	<!-- FullCalendar Files - JS & CSS Configuration -->
+  	<link rel="stylesheet" type="text/css" href="assets/fullcalendar/fullcalendar.css">
+	<link rel="stylesheet" type="text/css" href="assets/fullcalendar/fullcalendar.print.css" media="print">
+	<script type="text/javascript" src="assets/fullcalendar/jquery-ui-1.8.23.custom.min.js"></script>
+	<script type="text/javascript" src="assets/fullcalendar/fullcalendar.min.js"></script>
+
+	<script type="text/javascript">
+
+  	<!-- FullCalendar Initializaiton -->
+
+	$(document).ready(function() {
+	
+	
+		/* initialize the external events
+		-----------------------------------------------------------------*/
+	
+		$('#external-events div.external-event').each(function() {
+		
+			// create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+			// it doesn't need to have a start or end
+			var eventObject = {
+				title: $.trim($(this).text()) // use the element's text as the event title
+			};
+			
+			// store the Event Object in the DOM element so we can get to it later
+			$(this).data('eventObject', eventObject);
+			
+			// make the event draggable using jQuery UI
+			$(this).draggable({
+				zIndex: 999,
+				revert: true,      // will cause the event to go back to its
+				revertDuration: 0  //  original position after the drag
+			});
+			
+		});
+	
+	
+		/* initialize the calendar
+		-----------------------------------------------------------------*/
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			editable: true,
+			droppable: true, // this allows things to be dropped onto the calendar !!!
+			drop: function(date, allDay) { // this function is called when something is dropped
+			
+				// retrieve the dropped element's stored Event Object
+				var originalEventObject = $(this).data('eventObject');
+				
+				// we need to copy it, so that multiple events don't have a reference to the same object
+				var copiedEventObject = $.extend({}, originalEventObject);
+				
+				// assign it the date that was reported
+				copiedEventObject.start = date;
+				copiedEventObject.allDay = allDay;
+				
+				// render the event on the calendar
+				// the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+				$('#calendar').fullCalendar('renderEvent', copiedEventObject, true);
+				
+				// is the "remove after drop" checkbox checked?
+				if ($('#drop-remove').is(':checked')) {
+					// if so, remove the element from the "Draggable Events" list
+					$(this).remove();
+				}
+				
+			}
+		});
+	});
+
+</script>
+
+  	
+  </head>
+  <body>
+  	<!-- NAVIGATION MENU -->
+
+    <div class="navbar-nav navbar-inverse navbar-fixed-top">
+        <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html"><img src="assets/img/logo30.png" alt=""> BLOCKS Dashboard</a>
+        </div> 
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="index.html"><i class="icon-home icon-white"></i> Home</a></li>
+              <li><a href="manager.html"><i class="icon-folder-open icon-white"></i> File Manager</a></li>
+              <li class="active"><a href="calendar.html"><i class="icon-calendar icon-white"></i> Calendar</a></li>
+              <li><a href="tables.html"><i class="icon-th icon-white"></i> Tables</a></li>
+              <li><a href="login.html"><i class="icon-lock icon-white"></i> Login</a></li>
+              <li><a href="user.html"><i class="icon-user icon-white"></i> User</a></li>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+    </div>
+
+	<div class="container">
+
+      <!-- CONTENT -->
+		<div class="row">
+      		<!-- Event Selector -->
+			<div class="col-sm-3 col-lg-3">
+				<div id="external-events">
+				<h4>Draggable Events</h4>
+				<div class="external-event">My Event 1</div>
+				<div class="external-event">My Event 2</div>
+				<div class="external-event">My Event 3</div>
+				<div class="external-event">My Event 4</div>
+				<div class="external-event">My Event 5</div>
+				<p>
+				<input type="checkbox" id="drop-remove"> <label for="drop-remove">remove after drop</label>
+				</p>
+				</div>
+        	</div><!-- /span3 -->
+
+      		<!-- Calendar -->
+        	<div class="col-sm-9 col-lg-9">
+	        	<div id="calendar"></div>
+				<div style="clear:both"></div>
+			</div><!-- /span9 -->
+	      </div><!-- /row -->
+	   </div> <!-- /container -->
+     <br>
+    <!-- Footer -->
+	<div id="footerwrap">
+      	<footer class="clearfix"></footer>
+      	<div class="container">
+      		<div class="row">
+      			<div class="col-sm-12 col-lg-12">
+      			<p><img src="assets/img/logo.png" alt=""></p>
+      			<p>Blocks Dashboard Theme - Crafted With Love - Copyright 2013</p>
+      			</div>
+
+      		</div><!-- /row -->
+      	</div><!-- /container -->		
+	</div><!-- /footerwrap -->
+
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
+    <script type="text/javascript" src="assets/js/admin.js"></script>
+    
+
+  
+</body></html>
