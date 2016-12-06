@@ -19,7 +19,7 @@ function setsound(room, level) {
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/"><img src="assets/img/logo30.png" alt=""> Multiroom Audio</a>
+          <a class="navbar-brand" href="/"><img src="images/ico/favicon-32x32.png" alt=""> Multiroom Audio</a>
         </div> 
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">

@@ -25,7 +25,7 @@ get '/' => sub {
 
     my @rooms;
     my $id = 1;
-    my @default_colors = qw{#C00 #0C0 #00C #e5c837};
+    my @default_colors = qw{#0C0 #C00 #00C #e5c837};
     foreach my $cli (@$clients) {
         my $mac = lc $cli->{mac};
 
