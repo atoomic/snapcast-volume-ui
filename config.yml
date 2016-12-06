@@ -52,7 +52,7 @@ engines:
 #      is_http_only: 1
 
 snapcast:
-  demo: 1
+  demo: 0
   server:
      host: 'mezza.pi.eboxr.com'
      port: 1705

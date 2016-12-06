@@ -102,6 +102,7 @@ get '/api/setsound/:room/:volume' => sub {
             if ( $query->{'method'} eq 'Server.GetStatus' ) {
                 my $content = File::Slurp::slurp("./t/fixtures/server_status.json") or die $!;
                 $fake = JSON::XS->new->utf8->decode($content);
+                # add some extra clients
                 push @{$fake->{result}{clients}}, @{$fake->{result}{clients}} for 1..1;
             }
             return $fake;
