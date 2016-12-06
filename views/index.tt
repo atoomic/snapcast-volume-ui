@@ -20,7 +20,7 @@ console.log(data);
     </div>
   </div>
 </div>
-
+<br>
 <div class="container">
   <!-- FIRST ROW OF BLOCKS -->
   <div class="row">
