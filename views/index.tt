@@ -13,21 +13,14 @@ function setsound(room, level) {
 
     <div class="navbar-nav navbar-inverse navbar-fixed-top">
         <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="/"><img src="images/ico/favicon-32x32.png" alt=""> Multiroom Audio</a>
-        </div> 
-          <!-- <div class="navbar-collapse collapse"> -->
-            <!-- <ul class="nav navbar-nav"> -->
-              <!--<li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>-->
-              <!--<li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #1</a></li>-->
-              <!--<li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #2</a></li>-->
-            <!-- </ul> -->
-          <!-- </div> --><!--/.nav-collapse -->
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="images/ico/favicon-32x32.png" alt=""> Multiroom Audio</a>
+          </div> 
         </div>
     </div>
 
@@ -79,11 +72,8 @@ function setsound(room, level) {
 
 <!-- Blocks Dashboard Theme - Crafted With Love - Copyright 2013 -->
 
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="assets/js/bootstrap.js"></script>
-    <script type="text/javascript" src="assets/js/lineandbars.js"></script>
-  
-    <!-- You can add more layouts if you want -->
-    <script type="text/javascript" src="assets/js/noty/themes/default.js"></script>
+<!-- Le javascript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script type="text/javascript" src="javascripts/bootstrap.js"></script>
+<script type="text/javascript" src="javascripts/lineandbars.js"></script>
