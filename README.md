@@ -92,4 +92,5 @@ Unordered list of features
 - [ ] **Code cleanup** factorize js, css...
 - [ ] **Configuration** extract the configuration from the source code
 - [ ] **AutoSetup** auto setup using the UI ??
+- [ ] **Menu Links** add direct link for each rooms
 

@@ -21,13 +21,13 @@ function setsound(room, level) {
           </button>
           <a class="navbar-brand" href="/"><img src="images/ico/favicon-32x32.png" alt=""> Multiroom Audio</a>
         </div> 
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+          <!-- <div class="navbar-collapse collapse"> -->
+            <!-- <ul class="nav navbar-nav"> -->
               <!--<li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>-->
-              <li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #1</a></li>
-              <li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #2</a></li>
-            </ul>
-          </div><!--/.nav-collapse -->
+              <!--<li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #1</a></li>-->
+              <!--<li><a href="#"><i class="icon-folder-open icon-white"></i>&nbsp;Room #2</a></li>-->
+            <!-- </ul> -->
+          <!-- </div> --><!--/.nav-collapse -->
         </div>
     </div>
 
