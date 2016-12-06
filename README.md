@@ -1,8 +1,9 @@
 Snapcast Volume Control: Web UI
 ===============================
 
-This is a simple [Snapcast](https://github.com/badaix/snapcast) webapp designed to control volume of all snapcast clients using the JSON::RPC API.
-This app is powered by Perl & Dancer2.
+This is a simple [Snapcast](https://github.com/badaix/snapcast) webapp designed to control volume of any snapcast clients connected to a specific server, using the JSON::RPC API.
+
+This app is powered by Perl & Dancer2, and uses a bootstrap theme to be more user friendly on any devices: phone, table, computer...
 
 **S**y**n**chronous **a**udio **p**layer
 
@@ -15,8 +16,13 @@ How does this UI works
 This is using the JSON-RPC API, to first get the list of all connected clients,
 and display a volume dial for each of them.
 
+Desktop screenshot:
 
-![Snapcast](https://raw.githubusercontent.com/atoomic/snapcast-volume-ui/master/doc/screenshot.png)
+![Snapcast WebUI Desktop](https://raw.githubusercontent.com/atoomic/snapcast-volume-ui/master/doc/screenshot-desktop.png)
+
+Phone screenshot:
+
+![Snapcast WebUI Mobile](https://raw.githubusercontent.com/atoomic/snapcast-volume-ui/master/doc/screenshot-mobile.png)
 
 Installation
 ------------
@@ -24,11 +30,20 @@ Installation
 This webui is using perl and Dancer2. 
 You can install it on any server: where the snapcast server is running, or on a snapcast client server or any other server :-)
 
-* This is recommended to use perlbrew and use a recent version of perl.
-* install cpanm
-* then run 'install.sh' which is for now mainly running 'cpanm --installdeps .'
-* edit the config.yml file (view Configuration section)
-* you can then use plack or any other webserver to run the server, './devel-server' should run a webserver on port :5000.
+* It is recommended to use [perlbrew](https://perlbrew.pl) and a recent version of perl (5.22 or later, this should work with any perl >= 5.14).
+* install [cpanm](https://metacpan.org/pod/App::cpanminus) (you can directly use [perlbrew command line](https://perlbrew.pl/Perlbrew-and-Friends.html) for this)
+* then run 'install.sh' which is for now an alias to 'cpanm --installdeps .'
+* edit the config.yml file to set your own snapcast server IP & colors (view Configuration section)
+* you can then use plack or any other webserver to run the server, './devel-server' should run a webserver on port :5000
+* then you can access to your WebUI using http://127.0.0.1:5000/ (replace 127.0.0.1 by your server IP if hosted on a different server than your client)
+
+Note: the devel-server is nice to use during development & configuration to get errors on the command line, in production it's recommended to use the production environment.
+
+		plackup -E production -p 5005 ./bin/app.psgi
+
+If you are using a linux server with systemd, then you can customize the service in systemctl/snapcast-ui.service to match your settings, then run the makefile target to install it.
+
+		cd systemctl && sudo make all
 
 Configuration
 -------------
@@ -71,6 +86,10 @@ Wish List
 -------
 Unordered list of features
 - [X] **Basic UI** use JSON-RPC API to change client volume, responsive with mobile devices
+- [X] **UI** use bootstrap for the UI to adjust the size for each device, color improvements
 - [ ] **Doc** Improve doc & installation process
 - [ ] **More control** mute, ...
-- [ ] **UI** improve UI and adjust the size correctly for each device, color improvements
+- [ ] **Code cleanup** factorize js, css...
+- [ ] **Configuration** extract the configuration from the source code
+- [ ] **AutoSetup** auto setup using the UI ??
+
