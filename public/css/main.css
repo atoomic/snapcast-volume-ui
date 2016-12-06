@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * BLOCKS - Responsive Dashboard Theme
  *
  * Hey! Thanks for download this theme!
@@ -24,19 +24,13 @@
 
 
 /**********BASE CONFIGURATIONS**********/   
-
-body{
+body {
 	padding-top: 60px;
-    margin: 0px 50px;
-	background: #1f1f1f;
+	background:#1f1f1f;
     font-family: 'Open Sans', sans-serif;
-    /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-weight: 300;
-    text-rendering: optimizelegibility;
 }
 
-p{font-size: 30px; line-height: 30px}
-
+p {font-size: 30px; line-height: 30px}
 div.demo {text-align: center; width: 250px; height: 200px;}
 div.demo > p{font-size: 20px}
 
