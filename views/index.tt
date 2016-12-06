@@ -1,9 +1,17 @@
 <script>
 function setsound(room, level) {
-jQuery.get('/api/setsound/'+room+'/'+level, function(data) {
-console.log(data);
-//$("#msg").html(data["text"]);
-});
+    jQuery.get('/api/setsound/'+room+'/'+level, function(data) {
+    console.log(data);
+    //$("#msg").html(data["text"]);
+    });
+}
+
+function set_all_rooms_to(level) {
+  console.log("All rooms to " + level);
+  <% FOREACH room IN rooms %>
+  $("#i<%= room.id %>").val(level).trigger('change');
+  setsound("<%= room.id %>", level);
+  <% END %>
 }
 </script>
 <!-- http://anthonyterrien.com/knob/ -->
@@ -18,6 +26,14 @@ console.log(data);
       </button>
       <a class="navbar-brand" href="/"><img src="images/ico/favicon-32x32.png" alt=""> Multiroom Audio</a>
     </div>
+    <div class="navbar-collapse collapse">
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="#"><i class="icon-home icon-white"></i>&nbsp;Home</a></li>
+            <li><a href="#" onClick="set_all_rooms_to(0); false;"><i class="icon-folder-open icon-white"></i>&nbsp;Mute All Rooms</a></li>
+            <li><a href="#" onClick="set_all_rooms_to(50); false;"><i class="icon-folder-open icon-white"></i>&nbsp;All Rooms 050%</a></li>
+            <li><a href="#" onClick="set_all_rooms_to(100); false;"><i class="icon-folder-open icon-white"></i>&nbsp;All Rooms 100%</a></li>
+          </ul>
+     </div><!--/.nav-collapse -->
   </div>
 </div>
 <br>
@@ -31,7 +47,7 @@ console.log(data);
         <dtitle><%= room.name %></dtitle>
         <hr>
         <div class="demo">
-          <input class="<%= room.id %>" data-width="200" data-min="0" data-fgColor="<%= room.color %>" data-max="100" value="<%= room.value %>">
+          <input id="i<%= room.id %>" class="<%= room.id %>" data-width="200" data-min="0" data-fgColor="<%= room.color %>" data-max="100" value="<%= room.value %>">
         </div>
         <script>
         $(".<%= room.id %>").knob({

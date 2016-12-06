@@ -87,6 +87,7 @@ Wish List
 Unordered list of features
 - [X] **Basic UI** use JSON-RPC API to change client volume, responsive with mobile devices
 - [X] **UI** use bootstrap for the UI to adjust the size for each device, color improvements
+- [X] **Quick Access** mute or set the volume to 50% or 100% for all rooms, with one action in the menu
 - [ ] **Doc** Improve doc & installation process
 - [ ] **More control** mute, ...
 - [ ] **Code cleanup** factorize js, css...
