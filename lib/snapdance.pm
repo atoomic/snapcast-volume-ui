@@ -135,16 +135,18 @@ get '/api/setsound/:room/:volume' => sub {
         my $results = $self->do_request(
             { 'jsonrpc' => '2.0', 'method' => 'Server.GetStatus' } );
         die "No clients connected to server"
-          unless ref $results->{result}{clients}
-          && scalar @{ $results->{result}{clients} };
+          unless ref $results->{result}{groups}
+          && scalar @{ $results->{result}{groups} };
 
         my @clients;
-        foreach my $set ( @{ $results->{result}{clients} } ) {
-            push @clients,
-              {
-                mac    => $set->{'host'}{'mac'},
-                volume => $set->{'config'}{'volume'}{'percent'}
-              };
+        foreach my $group ( @{ $results->{result}{groups} } ) {
+            foreach my $set ( @{ $group->{clients} } ) {
+                push @clients,
+                  {
+                    mac    => $set->{'host'}{'mac'},
+                    volume => $set->{'config'}{'volume'}{'percent'}
+                  };
+            }
         }
 
         @clients = sort { $a->{mac} cmp $b->{mac} } @clients;
