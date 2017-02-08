@@ -161,7 +161,7 @@ get '/api/setsound/:room/:volume' => sub {
             {
                 'jsonrpc' => '2.0',
                 'method'  => 'Client.SetVolume',
-                'params'  => { 'client' => $client, 'volume' => int($volume) },
+                'params'  => { 'client' => $client, 'volume' => { 'percent' => int($volume) } },
 
                 #'id' => 1 # request id
             }
