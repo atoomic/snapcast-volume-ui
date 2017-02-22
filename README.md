@@ -33,7 +33,7 @@ You can install it on any server: where the snapcast server is running, or on a 
 * It is recommended to use [perlbrew](https://perlbrew.pl) and a recent version of perl (5.22 or later, this should work with any perl >= 5.14).
 * install [cpanm](https://metacpan.org/pod/App::cpanminus) (you can directly use [perlbrew command line](https://perlbrew.pl/Perlbrew-and-Friends.html) for this)
 * then run 'install.sh' which is for now an alias to 'cpanm --installdeps .'
-* edit the config.yml file to set your own snapcast server IP & colors (view Configuration section)
+* copy `config.yml.sample` to `config.yml` and edit it to set your own snapcast server IP & colors (view Configuration section)
 * you can then use plack or any other webserver to run the server, './devel-server' should run a webserver on port :5000
 * then you can access to your WebUI using http://127.0.0.1:5000/ (replace 127.0.0.1 by your server IP if hosted on a different server than your client)
 
