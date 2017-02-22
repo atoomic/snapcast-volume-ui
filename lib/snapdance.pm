@@ -30,7 +30,7 @@ get '/' => sub {
         my $mac = lc $cli->{mac};
 
         # ignore the client
-        next if grep { $_ eq $mac } @{ $cfg->{ignore} // [] };
+        next if grep { lc($_) eq $mac } @{ $cfg->{ignore} // [] };
         push @rooms,
           {
             id    => 'room' . $id++,
