@@ -2,3 +2,4 @@
 logs
 config.yml
 systemctl/snapcast-ui.service
+config.yml.backup
