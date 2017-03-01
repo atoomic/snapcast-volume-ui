@@ -1,6 +1,6 @@
 <script>
 function setsound(room, level) {
-    jQuery.get('/api/setsound/'+room+'/'+level, function(data) {
+    jQuery.get('/api/setsound/'+encodeURIComponent(room)+'/'+level, function(data) {
     console.log(data);
     //$("#msg").html(data["text"]);
     });
@@ -10,7 +10,6 @@ function set_all_rooms_to(level) {
   console.log("All rooms to " + level);
   <% FOREACH room IN rooms %>
   $("#i<%= room.id %>").val(level).trigger('change');
-  setsound("<%= room.id %>", level);
   <% END %>
 }
 </script>
@@ -53,14 +52,14 @@ function set_all_rooms_to(level) {
         $(".<%= room.id %>").knob({
         'release' : function (v) {
         console.log("<%= room.id %> "+v);
-        setsound( "<%= room.mac %>", v);
+        setsound( "<%= room.clientid %>", v);
         }
         });
         </script>
       </div>
     </div>
     <% END %>
-  </div><!-- /row -->    
+  </div><!-- /row -->
 </div> <!-- /container -->
 
 <div id="footerwrap">
