@@ -24,20 +24,20 @@ get '/' => sub {
     }
 
     my @rooms;
-    my $id = 1;
+    my $roomnumber = 1;
     my @default_colors = qw{#0C0 #C00 #00C #e5c837};
     foreach my $cli (@$clients) {
-        my $mac = lc $cli->{mac};
+        my $clientid = lc $cli->{clientid};
 
         # ignore the client
-        next if grep { lc($_) eq $mac } @{ $cfg->{ignore} // [] };
+        next if grep { lc($_) eq $clientid } @{ $cfg->{ignore} // [] };
         push @rooms,
           {
-            id    => 'room' . $id++,
-            name  => $cfgrooms->{$mac}->{name} // "Client from $mac",
-            mac   => $mac,
-            color => $cfgrooms->{$mac}->{color} // $default_colors[ ( $id - 2 ) % ( $#default_colors + 1 ) ],
-            value => $cli->{volume},
+            id       => 'room' . $roomnumber++,
+            name     => $cfgrooms->{$clientid}->{name} // "Client from $clientid",
+            clientid => $clientid,
+            color    => $cfgrooms->{$clientid}->{color} // $default_colors[ ( $roomnumber - 2 ) % ( $#default_colors + 1 ) ],
+            value    => $cli->{volume},
           };
     }
     @rooms = sort { lc( $a->{name} ) cmp lc( $b->{name} ) } @rooms;
@@ -140,28 +140,28 @@ get '/api/setsound/:room/:volume' => sub {
 
         my @clients;
         foreach my $group ( @{ $results->{result}{server}{groups} } ) {
-            foreach my $set ( @{ $group->{clients} } ) {
+            foreach my $client ( @{ $group->{clients} } ) {
                 push @clients,
                   {
-                    mac    => $set->{'host'}{'mac'},
-                    volume => $set->{'config'}{'volume'}{'percent'}
+                    clientid => $client->{'id'},
+                    volume   => $client->{'config'}{'volume'}{'percent'}
                   };
             }
         }
 
-        @clients = sort { $a->{mac} cmp $b->{mac} } @clients;
+        @clients = sort { $a->{clientid} cmp $b->{clientid} } @clients;
 
         return \@clients;
     }
 
     sub set_volume {
-        my ( $self, $client, $volume ) = @_;
+        my ( $self, $clientid, $volume ) = @_;
 
         my $results = $self->do_request(
             {
                 'jsonrpc' => '2.0',
                 'method'  => 'Client.SetVolume',
-                'params'  => { 'id' => $client, 'volume' => { 'percent' => int($volume) } },
+                'params'  => { 'id' => $clientid, 'volume' => { 'percent' => int($volume) } },
 
                 #'id' => 1 # request id
             }
