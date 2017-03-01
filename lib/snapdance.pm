@@ -56,7 +56,7 @@ get '/api/setsound/:room/:volume' => sub {
     my $reply;
     if ( !$error ) {
         $reply = $SNAPCAST->set_volume( $room, $volume );
-        $error = "Volume queries failed" unless $reply->{'result'} = $volume;
+        $error = "Volume queries failed" unless exists $reply->{'result'}{'volume'}{'percent'} && $reply->{'result'}{'volume'}{'percent'} == $volume;
     }
 
     return to_json { status => 0, msg => $error } if $error;
