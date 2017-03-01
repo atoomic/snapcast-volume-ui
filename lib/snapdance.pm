@@ -135,11 +135,11 @@ get '/api/setsound/:room/:volume' => sub {
         my $results = $self->do_request(
             { 'jsonrpc' => '2.0', 'method' => 'Server.GetStatus' } );
         die "No clients connected to server"
-          unless ref $results->{result}{groups}
-          && scalar @{ $results->{result}{groups} };
+          unless ref $results->{result}{server}{groups}
+          && scalar @{ $results->{result}{server}{groups} };
 
         my @clients;
-        foreach my $group ( @{ $results->{result}{groups} } ) {
+        foreach my $group ( @{ $results->{result}{server}{groups} } ) {
             foreach my $set ( @{ $group->{clients} } ) {
                 push @clients,
                   {
@@ -161,7 +161,7 @@ get '/api/setsound/:room/:volume' => sub {
             {
                 'jsonrpc' => '2.0',
                 'method'  => 'Client.SetVolume',
-                'params'  => { 'client' => $client, 'volume' => { 'percent' => int($volume) } },
+                'params'  => { 'id' => $client, 'volume' => { 'percent' => int($volume) } },
 
                 #'id' => 1 # request id
             }
