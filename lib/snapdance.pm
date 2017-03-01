@@ -141,6 +141,7 @@ get '/api/setsound/:room/:volume' => sub {
         my @clients;
         foreach my $group ( @{ $results->{result}{server}{groups} } ) {
             foreach my $client ( @{ $group->{clients} } ) {
+                next if !$client->{connected}; # Ignore disconnected clients
                 push @clients,
                   {
                     clientid => $client->{'id'},
