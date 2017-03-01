@@ -10,7 +10,6 @@ function set_all_rooms_to(level) {
   console.log("All rooms to " + level);
   <% FOREACH room IN rooms %>
   $("#i<%= room.id %>").val(level).trigger('change');
-  setsound("<%= room.id %>", level);
   <% END %>
 }
 </script>
