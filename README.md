@@ -27,6 +27,14 @@ Phone screenshot:
 Installation
 ------------
 
+**Warning**: snapcast *JSON RPC API* is still under development, so depending on the snapcast version you are using you would need to use
+the correct branch. Recent snapcast upgrade to version 0.11 introduced the concept of groups which is not available before.
+So you need to be sure to use the correct branch depending on your snapcast version.
+
+* v0.11: please use branch [snapcast/v0.11](https://github.com/atoomic/snapcast-volume-ui/tree/snapcast/v0.11)
+* v0.10: please use branch [snapcast/v0.10.0](https://github.com/atoomic/snapcast-volume-ui/tree/snapcast/v0.10.0)
+* the [master](https://github.com/atoomic/snapcast-volume-ui/tree/master) branch is used for tracking current development
+
 This webui is using perl and Dancer2. 
 You can install it on any server: where the snapcast server is running, or on a snapcast client server or any other server :-)
 
