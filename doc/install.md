@@ -20,11 +20,13 @@ but these instructions do not depend on any local snapcast installation or confi
 ### INSTALL FROM REPOS
 
 # install dependency packages - translated from requires list in 
+# ( use the correct branch depending on your snapcast server version )
 # [https://github.com/atoomic/snapcast-volume-ui/blob/master/cpanfile]
 # time hires is in perl core included in raspbian lite
 sudo apt-get install -y libdancer2-perl libplack-perl libclass-accessor-class-perl \ 
   libtest-harness-perl libnet-telnet-perl libtemplate-perl libjson-xs-perl \ 
-  libfile-fcntllock-perl
+  libfile-fcntllock-perl \
+  cpanminus
 
 # now let's copy the code from the git repo
 # v.11 not ready yet
@@ -37,21 +39,14 @@ mkdir -p ~/snapvol-$SNAPVOL_VERSION/
 curl -SL https://github.com/atoomic/snapcast-volume-ui/tarball/$SNAPVOL_BRANCH \ 
   | tar -xzC ~/snapvol-$SNAPVOL_VERSION/ --strip-components=1
 
-# Workaround because I couldn't find a Simple Accessor package in the repos
-sudo mkdir -p /usr/share/perl5/Simple
-cd /usr/share/perl5/Simple
-sudo curl -O https://raw.githubusercontent.com/atoomic/Simple-Accessor/master/lib/Simple/Accessor.pm
-cd ~/snapvol-$SNAPVOL_VERSION/
-
-
 ### Check your network details
 
 # get the IP for my server and mac addresses for my clients
 # please change these to your own hostnames
-ping -c 1 mysnapserver
-ping -c 1 mysnapclient1
-ping -c 1 mysnapclient2
-arp
+#ping -c 1 mysnapserver
+#ping -c 1 mysnapclient1
+#ping -c 1 mysnapclient2
+#arp
 
 ### Configure
 
@@ -61,14 +56,20 @@ cp config.yml.example config.yml
 # server host must be IP address
 editor config.yml
 
+### Check all perl modules are installed
+# this is going to install missing perl modules using cpanm 
+#	it's always better to install the packaged version when available
+
+./install.sh
 
 ### TEST
 
-plackup -E development -p 8080 ./bin/app.psgi
+# start the devel server on port 5000
+./devel-server
 
-# now browse to http://thishostname:8080/ to make sure it works, 
+# now browse to http://thishostname:5000/ to make sure it works, 
 # observing the console output in case of issues
-
+# adjust your configuration file by setting colors, name...
 
 ### INSTALL AS A SERVICE
 
@@ -77,17 +78,11 @@ cp snapcast-ui.service.example snapcast-ui.service
 editor snapcast-ui.service
 ```
 You must change the Execstart line to be (manually replacing $SNAPVOL_VERSION with the version number)
-
+You can also change the port number.
 ```
 ExecStart=/usr/bin/plackup -E production -p 8080  /home/pi/snapvol-$SNAPVOL_VERSION/bin/app.psgi
 ```
 now carry on with
-
-```
-editor Makefile
-```
-Unfortunately the current version of the Makefile does not account for the debian systemd path convention 
-`/lib/systemd/system/` and so you will have to remove the `/usr` from the beginning of it to leave
 
 ```
 	install snapcast-ui.service /lib/systemd/system/
