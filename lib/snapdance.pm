@@ -1,9 +1,14 @@
 package snapdance;
+
 use Dancer2;
+use Fcntl qw(:flock SEEK_END);
+use Time::HiRes;
 
 our $VERSION = '0.1';
 
 my $SNAPCAST = SnapcastQueries->new( config => config()->{'snapcast'} );
+
+my @DEFAULT_COLORS = map { "#$_" } qw{0C0 C00 00C e5c837};
 
 get '/' => sub {
 
@@ -25,7 +30,8 @@ get '/' => sub {
 
     my @rooms;
     my $roomnumber = 1;
-    my @default_colors = qw{#0C0 #C00 #00C #e5c837};
+    my $id = 1;
+
     foreach my $cli (@$clients) {
         my $clientid = lc $cli->{clientid};
 
@@ -36,7 +42,7 @@ get '/' => sub {
             id       => 'room' . $roomnumber++,
             name     => $cfgrooms->{$clientid}->{name} // "Client from $clientid",
             clientid => $clientid,
-            color    => $cfgrooms->{$clientid}->{color} // $default_colors[ ( $roomnumber - 2 ) % ( $#default_colors + 1 ) ],
+            color    => $cfgrooms->{$clientid}->{color} // $DEFAULT_COLORS[ ( $roomnumber - 2 ) % ( $#DEFAULT_COLORS + 1 ) ],
             value    => $cli->{volume},
           };
     }
@@ -52,14 +58,31 @@ get '/api/setsound/:room/:volume' => sub {
 
     my $error;
     $error = "Invalid volume" if $volume !~ qr{^[0-9]+$} or $volume > 100;
-
     my $reply;
+
+    open( my $lock, '>>', '/tmp/snapdance.lock' )
+      or warn "Cannot lock file: $!";
+    #print "$$ wait for lock\n";
+    flock( $lock, LOCK_EX ) if $lock;
+    #print "$$ wait unlocked\n";
+
+    # -- for debug only
+    #Time::HiRes::usleep(500000);
+    #return to_json { status => 1, msg => "OK: $room - :$volume:" };
+
     if ( !$error ) {
         $reply = $SNAPCAST->set_volume( $room, $volume );
         $error = "Volume queries failed" unless exists $reply->{'result'}{'volume'}{'percent'} && $reply->{'result'}{'volume'}{'percent'} == $volume;
     }
 
+    # 300_000 is too short
+    Time::HiRes::usleep(750_000);
+
+    # remove lock (not really necessary as it's going to be removed on destruction)
+    flock( $lock, LOCK_UN ) if $lock;
+
     return to_json { status => 0, msg => $error } if $error;
+
     return to_json { status => 1, msg => "OK: $room - :$volume:",
         debug => $reply };
 };
@@ -96,14 +119,19 @@ get '/api/setsound/:room/:volume' => sub {
     sub do_request {
         my ( $self, $query ) = @_;
 
-        if (  $self->is_demo() ) {
+        if ( $self->is_demo() ) {
             my $fake = {};
             require File::Slurp;
             if ( $query->{'method'} eq 'Server.GetStatus' ) {
-                my $content = File::Slurp::slurp("./t/fixtures/server_status.json") or die $!;
+                my $content =
+                  File::Slurp::slurp("./t/fixtures/server_status.json")
+                  or die $!;
                 $fake = JSON::XS->new->utf8->decode($content);
+
                 # add some extra clients
-                push @{$fake->{result}{clients}}, @{$fake->{result}{clients}} for 1..1;
+                push @{ $fake->{result}{clients} },
+                  @{ $fake->{result}{clients} }
+                  for 1 .. 1;
             }
             return $fake;
         }
