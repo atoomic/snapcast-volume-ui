@@ -5,6 +5,8 @@ our $VERSION = '0.1';
 
 my $SNAPCAST = SnapcastQueries->new( config => config()->{'snapcast'} );
 
+my @DEFAULT_COLORS = map { "#$_"} qw{0C0 C00 00C e5c837};
+
 get '/' => sub {
 
 # refresh the client on each homepage (do not cache if another browser is also updating it)
@@ -25,7 +27,8 @@ get '/' => sub {
 
     my @rooms;
     my $roomnumber = 1;
-    my @default_colors = qw{#0C0 #C00 #00C #e5c837};
+    my $id = 1;
+    
     foreach my $cli (@$clients) {
         my $clientid = lc $cli->{clientid};
 
@@ -36,7 +39,7 @@ get '/' => sub {
             id       => 'room' . $roomnumber++,
             name     => $cfgrooms->{$clientid}->{name} // "Client from $clientid",
             clientid => $clientid,
-            color    => $cfgrooms->{$clientid}->{color} // $default_colors[ ( $roomnumber - 2 ) % ( $#default_colors + 1 ) ],
+            color    => $cfgrooms->{$clientid}->{color} // $DEFAULT_COLORS[ ( $roomnumber - 2 ) % ( $#DEFAULT_COLORS + 1 ) ],
             value    => $cli->{volume},
           };
     }
