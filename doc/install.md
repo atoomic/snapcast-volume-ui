@@ -81,7 +81,9 @@ You must change the Execstart line to be (manually replacing $SNAPVOL_VERSION wi
 ```
 ExecStart=/usr/bin/plackup -E production -p 8080  /home/pi/snapvol-$SNAPVOL_VERSION/bin/app.psgi
 ```
+now carry on with
 
+```
 editor Makefile
 ```
 Unfortunately the current version of the Makefile does not account for the debian systemd path convention 
