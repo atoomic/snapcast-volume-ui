@@ -1,8 +1,6 @@
 package snapdance;
 
 use Dancer2;
-use Fcntl qw(:flock SEEK_END);
-use Time::HiRes;
 
 our $VERSION = '0.1';
 
@@ -60,29 +58,12 @@ get '/api/setsound/:room/:volume' => sub {
     $error = "Invalid volume" if $volume !~ qr{^[0-9]+$} or $volume > 100;
     my $reply;
 
-    open( my $lock, '>>', '/tmp/snapdance.lock' )
-      or warn "Cannot lock file: $!";
-    #print "$$ wait for lock\n";
-    flock( $lock, LOCK_EX ) if $lock;
-    #print "$$ wait unlocked\n";
-
-    # -- for debug only
-    #Time::HiRes::usleep(500000);
-    #return to_json { status => 1, msg => "OK: $room - :$volume:" };
-
     if ( !$error ) {
         $reply = $SNAPCAST->set_volume( $room, $volume );
         $error = "Volume queries failed" unless $reply->{'result'} = $volume;
     }
 
-    # 300_000 is too short
-    Time::HiRes::usleep(750_000);
-
-    # remove lock (not really necessary as it's going to be removed on destruction)
-    flock( $lock, LOCK_UN ) if $lock;
-
     return to_json { status => 0, msg => $error } if $error;
-
     return to_json { status => 1, msg => "OK: $room - :$volume:",
         debug => $reply };
 };
@@ -95,6 +76,9 @@ get '/api/setsound/:room/:volume' => sub {
     use JSON::XS;
     use Net::Telnet;
     use Data::Dumper;
+
+    use Fcntl qw(:flock SEEK_END);
+    use Time::HiRes;
 
     use Simple::Accessor qw{config hostname port};
 
@@ -136,6 +120,12 @@ get '/api/setsound/:room/:volume' => sub {
             return $fake;
         }
 
+# snapcast bug in 0.10 (fixed in 0.11) where concurrency request lead to crash the server
+# URL: https://github.com/badaix/snapcast/issues/200
+        open( my $lock, '>>', '/tmp/snapdance.lock' )
+          or warn "Cannot lock file: $!";
+        flock( $lock, LOCK_EX ) if $lock;
+
         my $snapserver = $self->hostname();
         my $port       = $self->port();
 
@@ -149,6 +139,13 @@ get '/api/setsound/:room/:volume' => sub {
         $t->open( Host => $snapserver, Port => $port ) or die;
         my ($reply) = $t->cmd( $json . "\r\n" );
         $t->close;
+
+# 300_000 or 500_000 is too short: this value is highly dependent on network, cpu, weather...
+#   and any other environment, this is mainly a ugly workaround
+        Time::HiRes::usleep(750_000);
+
+ # remove lock (not really necessary as it's going to be removed on destruction)
+        flock( $lock, LOCK_UN ) if $lock;
 
         my $results = JSON::XS->new->utf8->decode($reply);
 
