@@ -31,6 +31,7 @@ Installation
 the correct branch. Recent snapcast upgrade to version 0.11 introduced the concept of groups which is not available before.
 So you need to be sure to use the correct branch depending on your snapcast version.
 
+* v0.12: please use branch [snapcast/v0.12](https://github.com/atoomic/snapcast-volume-ui/tree/snapcast/v0.12)
 * v0.11: please use branch [snapcast/v0.11](https://github.com/atoomic/snapcast-volume-ui/tree/snapcast/v0.11)
 * v0.10: please use branch [snapcast/v0.10.0](https://github.com/atoomic/snapcast-volume-ui/tree/snapcast/v0.10.0)
 * the [master](https://github.com/atoomic/snapcast-volume-ui/tree/master) branch is used for tracking current development
