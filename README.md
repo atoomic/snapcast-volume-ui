@@ -91,6 +91,22 @@ You should check this project https://github.com/atoomic/runeui-color-icons to c
 
 ![Blue](https://raw.githubusercontent.com/atoomic/runeui-color-icons/master/blue/apple-touch-icon.png)
 
+Using a Docker Container
+------------------------
+
+An alternate way to install snapcast-volume-ui webapp is to use a Docker container. # Thanks @mdef
+Here is a recipe for one [Ubuntu 16.04 based container](https://hub.docker.com/r/mdef/snapcast-volume-ui/)
+
+	docker pull mdef/snapcast-volume-ui
+
+mount your config to /snapcast-volume-ui/config.yml
+
+How-to run
+
+	docker run --net=host --workdir=/snapcast-volume-ui mdef/snapcast-volume-ui /snapcast-volume-ui/devel-server
+
+The app is accessible on port 5000
+
 Wish List
 -------
 Unordered list of features
