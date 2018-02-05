@@ -107,6 +107,49 @@ How-to run
 
 The app is accessible on port 5000
 
+FAQ / common issues
+------------------------
+
+Q: The servers are listed but the sound control does not work
+
+A: make sure to use the correct branch for your snapcast server version: v0.12, v0.11 or v0.10 depending on the version you use
+
+Q: I'm using snapcast client v0.12 on multiple raspberry pi but the UI control did not work
+
+A: It appears that snpacast server is not able to identify all clients without setting the hostid
+
+update your snapcast client configuration file /etc/default/snapclient
+```
+START_SNAPCLIENT=true
+SNAPCLIENT_OPTS="-d -h X.X.X.X --hostID myuniqueservernameusinglowercase"
+```
+where X.X.X.X should be replaced by the IP of the server hosting snapcast server
+and myservernameusinglowercase are unique names you want to give to each of your client.
+This name should be unique for each client, and only use lowercase.
+
+You can then replace the mac address by the hostID in the snapcast UI configuration file
+
+```
+snapcast:
+  demo: 0
+  server:
+     host: 'localhost'
+     port: 1705
+  rooms:
+    '[mac address or hostID]':
+       color: '#0C0'
+       name:  'YourCustomName'
+    '[mac address 2 or hostID2]':
+       color: '#C00'
+       name:  'Your second custom name'
+    '[myuniqueservernameusinglowercase]':
+       color: '#CCC'
+       name:  'Your Custom Name for this hostID'
+```
+
+Note: view issue https://github.com/atoomic/snapcast-volume-ui/issues/12 for more details
+
+
 Wish List
 -------
 Unordered list of features
