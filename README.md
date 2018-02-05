@@ -110,13 +110,13 @@ The app is accessible on port 5000
 FAQ / common issues
 ------------------------
 
-Q: The servers are listed but the sound control does not work
+**Q: The servers are listed but the sound control does not work**
 
-A: make sure to use the correct branch for your snapcast server version: v0.12, v0.11 or v0.10 depending on the version you use
+**A:** make sure to use the correct branch for your snapcast server version: v0.12, v0.11 or v0.10 depending on the version you use
 
-Q: I'm using snapcast client v0.12 on multiple raspberry pi but the UI control did not work
+**Q: I'm using snapcast client v0.12 on multiple raspberry pi but the UI control did not work**
 
-A: It appears that snpacast server is not able to identify all clients without setting the hostid
+**A:** It appears that snpacast server is not able to identify all clients without setting the hostid
 
 update your snapcast client configuration file /etc/default/snapclient
 ```
